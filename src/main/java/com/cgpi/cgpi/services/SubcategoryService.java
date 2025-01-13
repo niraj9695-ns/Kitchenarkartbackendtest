@@ -1,12 +1,18 @@
 package com.cgpi.cgpi.services;
 
+import com.cgpi.cgpi.entity.Product;
 import com.cgpi.cgpi.entity.Subcategory;
+import com.cgpi.cgpi.repository.ProductRepository;
 import com.cgpi.cgpi.repository.SubcategoryRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
 public class SubcategoryService {
+	@Autowired
+    private ProductRepository productRepository;
 
     private final SubcategoryRepository subcategoryRepository;
 
@@ -32,5 +38,9 @@ public class SubcategoryService {
     public List<Subcategory> getSubcategoriesByCategoryId(Long categoryId) {
         return subcategoryRepository.findByCategoryId(categoryId);
     }
+    public List<Product> getProductsBySubcategoryId(Long subcategoryId) {
+        return productRepository.findBySubcategoryId(subcategoryId); // Assuming JPA repository method
+    }
+
 
 }

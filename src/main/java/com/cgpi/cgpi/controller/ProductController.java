@@ -43,7 +43,7 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> addProduct(
             @RequestParam("name") String name,
-            @RequestParam("productCode") String productCode,
+//            @RequestParam("productCode") String productCode,
             @RequestParam("taxAmount") BigDecimal taxAmount,
             @RequestParam("hsnCode") String hsnCode,
             @RequestParam(value = "categoryId", required = false) Long categoryId, // Allow null
@@ -54,7 +54,7 @@ public class ProductController {
         try {
             Product product = new Product();
             product.setName(name);
-            product.setProductCode(productCode);
+//            product.setProductCode(productCode);
             product.setTaxAmount(taxAmount);
             product.setHsnCode(hsnCode);
             product.setNewArrival(isNewArrival); // Set whether it's a new arrival
@@ -101,7 +101,7 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(
             @PathVariable Long id,
             @RequestParam(value = "name", required = false) String name,
-            @RequestParam(value = "productCode", required = false) String productCode,
+//            @RequestParam(value = "productCode", required = false) String productCode,
             @RequestParam(value = "taxAmount", required = false) BigDecimal taxAmount,
             @RequestParam(value = "hsnCode", required = false) String hsnCode,
             @RequestParam(value = "categoryId", required = false) Long categoryId, // New parameter for category
@@ -119,7 +119,7 @@ public class ProductController {
 
             // Update existing product fields only if the new value is provided
             if (name != null) existingProduct.setName(name);
-            if (productCode != null) existingProduct.setProductCode(productCode);
+//            if (productCode != null) existingProduct.setProductCode(productCode);
             if (taxAmount != null) existingProduct.setTaxAmount(taxAmount);
             if (hsnCode != null) existingProduct.setHsnCode(hsnCode);
 

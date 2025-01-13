@@ -1,10 +1,13 @@
 package com.cgpi.cgpi.controller;
 
 import com.cgpi.cgpi.entity.Subcategory;
+
 import com.cgpi.cgpi.services.CategoryService;
+import com.cgpi.cgpi.services.SelectedCategoryService;
 import com.cgpi.cgpi.services.SubcategoryService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -15,7 +18,8 @@ import java.util.List;
 @RequestMapping("/api/subcategories")
 @CrossOrigin(origins = "http://localhost:3000")
 public class SubcategoryController {
-
+	 @Autowired
+	    private SelectedCategoryService selectedCategoryService;
     private final SubcategoryService subcategoryService;
     private final CategoryService categoryService;
 
@@ -78,6 +82,12 @@ public class SubcategoryController {
     @GetMapping("/category/{id}")
     public ResponseEntity<List<Subcategory>> getSubcategoriesByCategoryId(@PathVariable Long id) {
         List<Subcategory> subcategories = subcategoryService.getSubcategoriesByCategoryId(id);
+        return new ResponseEntity<>(subcategories, HttpStatus.OK);
+    }
+    @GetMapping("/selected")
+    public ResponseEntity<List<Subcategory>> getSubcategoriesForSelectedCategory() {
+        Long selectedCategoryId = selectedCategoryService.getSelectedCategoryId();
+        List<Subcategory> subcategories = subcategoryService.getSubcategoriesByCategoryId(selectedCategoryId);
         return new ResponseEntity<>(subcategories, HttpStatus.OK);
     }
 

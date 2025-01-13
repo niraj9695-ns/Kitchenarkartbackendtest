@@ -58,7 +58,7 @@ public class ProductService {
 
                 // Map Excel columns to Product fields
                 product.setName(getStringCellValue(row.getCell(0)));
-                product.setProductCode(getStringCellValue(row.getCell(1)));
+//                product.setProductCode(getStringCellValue(row.getCell(1)));
 //                product.setPrice(getBigDecimalValue(row.getCell(2)));
                 product.setTaxAmount(getBigDecimalValue(row.getCell(2)));
                 product.setHsnCode(getStringCellValue(row.getCell(3)));
@@ -130,7 +130,7 @@ public class ProductService {
         if (existingProductOpt.isPresent()) {
             Product existingProduct = existingProductOpt.get();
             existingProduct.setName(product.getName());
-            existingProduct.setProductCode(product.getProductCode());
+//            existingProduct.setProductCode(product.getProductCode());
 
             existingProduct.setTaxAmount(product.getTaxAmount());
             existingProduct.setHsnCode(product.getHsnCode());

@@ -37,6 +37,8 @@ public class ProductVariant {
     private String dimensions; // Dimensions for the variant
     private BigDecimal price; // Price for the variant
     private Integer stock; // Stock for the variant
+    private String productCode;
+    private Integer lowStockThreshold; 
 
     @ElementCollection
   
@@ -171,4 +173,12 @@ public class ProductVariant {
     public void setImages(List<byte[]> images) {
         this.images = images;
     }
+    public String getProductCode() {
+        return productCode;
+    }
+
+    public void setProductCode(String productCode) {
+        this.productCode = productCode;
+    }
+ 
 }

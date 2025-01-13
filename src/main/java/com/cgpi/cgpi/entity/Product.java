@@ -29,7 +29,7 @@ public class Product {
 
     private String name;
 
-    private String productCode;
+//    private String productCode;
 
 //    private BigDecimal price;
 
@@ -37,6 +37,7 @@ public class Product {
 
     private String hsnCode;
     private boolean isNewArrival;
+//    private Integer lowStockThreshold; 
 
 //    private Boolean inStock;
 //
@@ -101,13 +102,13 @@ public class Product {
         this.name = name;
     }
 
-    public String getProductCode() {
-        return productCode;
-    }
-
-    public void setProductCode(String productCode) {
-        this.productCode = productCode;
-    }
+//    public String getProductCode() {
+//        return productCode;
+//    }
+//
+//    public void setProductCode(String productCode) {
+//        this.productCode = productCode;
+//    }
 
 //    public BigDecimal getPrice() {
 //        return price;
@@ -265,4 +266,11 @@ public class Product {
     public void setVariants(List<ProductVariant> variants) {
         this.variants = variants;
     }
+//    public Integer getLowStockThreshold() {
+//        return lowStockThreshold;
+//    }
+//
+//    public void setLowStockThreshold(Integer lowStockThreshold) {
+//        this.lowStockThreshold = lowStockThreshold;
+//    }
 }

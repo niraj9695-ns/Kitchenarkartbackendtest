@@ -48,6 +48,7 @@ throw new ResourceNotFoundException("Variant does not belong to the specified pr
 }
 
 // Update other fields of the variant
+existingVariant.setProductCode(variant.getProductCode());
 existingVariant.setColor(variant.getColor());
 existingVariant.setDimensions(variant.getDimensions());
 existingVariant.setPrice(variant.getPrice());
@@ -123,9 +124,6 @@ return productVariantRepository.save(existingVariant);
         return Optional.of(variant);
     }
 
-    // Get all variants for all products
-    public List<ProductVariant> getAllVariants() {
-        return productVariantRepository.findAll();
-    }
+    
     
 }

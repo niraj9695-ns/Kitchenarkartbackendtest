@@ -27,6 +27,7 @@ public class ProductVariantController {
     @PostMapping
     public ResponseEntity<ProductVariant> addVariant(
             @PathVariable Long productId,
+            @RequestParam String productCode,
             @RequestParam String color,
             @RequestParam String dimensions,
             @RequestParam BigDecimal price,
@@ -43,6 +44,7 @@ public class ProductVariantController {
             @RequestParam(required = false) List<MultipartFile> images) {
 
         ProductVariant variant = new ProductVariant();
+        variant.setProductCode(productCode);
         variant.setColor(color);
         variant.setDimensions(dimensions);
         variant.setPrice(price);
@@ -79,7 +81,8 @@ public class ProductVariantController {
     @PutMapping("/{variantId}")
     public ResponseEntity<ProductVariant> updateVariant(
             @PathVariable Long productId, 
-            @PathVariable Long variantId, 
+            @PathVariable Long variantId,
+            @RequestParam(required = false) String productCode,
             @RequestParam(required = false) String color,
             @RequestParam(required = false) String dimensions,
             @RequestParam(required = false) BigDecimal price,
@@ -113,6 +116,7 @@ public class ProductVariantController {
 
         // Create ProductVariant object and set properties if provided
         ProductVariant variant = new ProductVariant();
+        if (productCode != null) variant.setProductCode(productCode);
         if (color != null) variant.setColor(color);
         if (dimensions != null) variant.setDimensions(dimensions);
         if (price != null) variant.setPrice(price);
@@ -148,4 +152,6 @@ public class ProductVariantController {
         List<ProductVariant> variants = productVariantService.getVariantsByProductId(productId);
         return ResponseEntity.ok(variants);
     }
+    
+    
 }
