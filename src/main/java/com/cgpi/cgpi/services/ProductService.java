@@ -11,6 +11,8 @@ import com.cgpi.cgpi.repository.ProductVariantRepository;
 import com.cgpi.cgpi.repository.SubcategoryRepository;
 import com.cgpi.cgpi.repository.SubsubcategoryRepository;
 
+import jakarta.transaction.Transactional;
+
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
@@ -44,6 +46,24 @@ public class ProductService {
 
     @Autowired
     private SubsubcategoryRepository subsubcategoryRepository;
+    
+    
+    
+    public Product updateProductTax(Long productId, BigDecimal newTaxPercentage) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new RuntimeException("Product not found"));
+
+        product.setTaxPercentage(newTaxPercentage);
+        productRepository.save(product);
+
+        List<ProductVariant> variants = productVariantRepository.findByProduct(product);
+        for (ProductVariant variant : variants) {
+            variant.setProduct(product); // Triggers tax update
+            productVariantRepository.save(variant);
+        }
+        
+        return product;
+    }
 
     public void importProductsFromExcel(MultipartFile file) throws IOException {
         List<Product> products = new ArrayList<>();
@@ -242,6 +262,7 @@ public class ProductService {
     public List<Product> getProductsByCategoryId(Long categoryId) {
         return productRepository.findByCategoryId(categoryId);
     }
-
-
+    public List<Product> getMostSelling() {
+        return productRepository.findByIsMostSelling(true);  // Assuming you're using Spring Data JPA
+    }
 }

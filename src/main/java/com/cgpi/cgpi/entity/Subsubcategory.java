@@ -20,6 +20,7 @@ public class Subsubcategory {
     private String name;
 
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image; // Optional, for storing an image for the subsubcategory
 
     // Long field for subcategory ID

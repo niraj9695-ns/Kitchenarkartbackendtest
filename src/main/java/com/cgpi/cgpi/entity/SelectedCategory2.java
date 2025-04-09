@@ -3,15 +3,15 @@ package com.cgpi.cgpi.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "selected_subcategory")  // Defines the table name in the database
+@Table(name = "selected_category2")  // Defines the table name in the database
 public class SelectedCategory2 {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Auto-incrementing primary key
     private Long id;
 
-    @Column(name = "subcategory_id", nullable = false)  // Stores the selected category ID
-    private Long subcategoryId;
+    @Column(name = "category_id", nullable = true)  // Stores the selected category ID
+    private Long categoryId;
 
     // Getter for 'id'
     public Long getId() {
@@ -24,12 +24,12 @@ public class SelectedCategory2 {
     }
 
     // Getter for 'categoryId'
-    public Long getSubcategoryId() {
-        return subcategoryId;
+    public Long getCategoryId() {
+        return categoryId;
     }
 
     // Setter for 'categoryId'
-    public void setSubcategoryId(Long subcategoryId) {
-        this.subcategoryId = subcategoryId;
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
     }
 }

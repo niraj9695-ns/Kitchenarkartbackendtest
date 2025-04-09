@@ -32,8 +32,8 @@ public class ProductVariantController {
             @RequestParam String dimensions,
             @RequestParam BigDecimal price,
             @RequestParam int stock,
-            @RequestParam(required = false) Boolean inStock,
-            @RequestParam(required = false) Integer quantity,
+            @RequestParam(required = false) String includedComponents,
+            @RequestParam(required = false) String productGrossWeight,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) List<String> keyFeatures,
             @RequestParam(required = false) String otherDimensions,
@@ -49,8 +49,8 @@ public class ProductVariantController {
         variant.setDimensions(dimensions);
         variant.setPrice(price);
         variant.setStock(stock);
-        variant.setInStock(inStock);
-        variant.setQuantity(quantity);
+        variant.setIncludedComponents(includedComponents);
+        variant.setProductGrossWeight(productGrossWeight);
         variant.setDescription(description);
         variant.setKeyFeatures(keyFeatures);
         variant.setOtherDimensions(otherDimensions);
@@ -87,8 +87,8 @@ public class ProductVariantController {
             @RequestParam(required = false) String dimensions,
             @RequestParam(required = false) BigDecimal price,
             @RequestParam(required = false) Integer stock,
-            @RequestParam(required = false) Boolean inStock,
-            @RequestParam(required = false) Integer quantity,
+            @RequestParam(required = false) String includedComponents,
+            @RequestParam(required = false) String productGrossWeight,
             @RequestParam(required = false) String description,
             @RequestParam(required = false) List<String> keyFeatures,
             @RequestParam(required = false) String otherDimensions,
@@ -121,8 +121,8 @@ public class ProductVariantController {
         if (dimensions != null) variant.setDimensions(dimensions);
         if (price != null) variant.setPrice(price);
         if (stock != null) variant.setStock(stock);
-        if (inStock != null) variant.setInStock(inStock);
-        if (quantity != null) variant.setQuantity(quantity);
+        if (includedComponents != null) variant.setIncludedComponents(includedComponents);
+        if (productGrossWeight != null) variant.setProductGrossWeight(productGrossWeight);
         if (description != null) variant.setDescription(description);
         if (keyFeatures != null) variant.setKeyFeatures(keyFeatures);
         if (otherDimensions != null) variant.setOtherDimensions(otherDimensions);

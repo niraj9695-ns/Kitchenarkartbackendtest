@@ -24,28 +24,27 @@ public class SelectedCategory2Controller {
     @GetMapping
     public ResponseEntity<Map<String, Object>> getSelectedCategory() {
         Map<String, Object> response = new HashMap<>();
-        response.put("subcategoryId", selectedCategory2Service.getSelectedCategoryId());
-        response.put("subcategoryName", selectedCategory2Service.getSelectedCategoryName());
-        response.put("subcategoryImage", selectedCategory2Service.getSelectedCategoryImage());
+        response.put("categoryId", selectedCategory2Service.getSelectedCategoryId());
+        response.put("categoryName", selectedCategory2Service.getSelectedCategoryName());
+        response.put("categoryImage", selectedCategory2Service.getSelectedCategoryImage());
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/details-with-subcategories")
-    public ResponseEntity<Map<String, Object>> getSelectedCategoryWithSubcategoriesAndProducts() {
+    public ResponseEntity<Map<String, Object>> getSelectedCategoryWithSubcategories() {
         Map<String, Object> response = new HashMap<>();
-        Long subcategoryId = selectedCategory2Service.getSelectedCategoryId();
-        response.put("subcategoryId", subcategoryId);
-        response.put("subcategoryName", selectedCategory2Service.getSelectedCategoryName());
-        response.put("subcategoryImage", selectedCategory2Service.getSelectedCategoryImage());
-        response.put("subcategories", subcategoryService.getSubcategoriesByCategoryId(subcategoryId));
-        response.put("products", subcategoryService.getProductsBySubcategoryId(subcategoryId)); // Fetch products for subcategory
+        Long categoryId = selectedCategory2Service.getSelectedCategoryId();
+        response.put("categoryId", categoryId);
+        response.put("categoryName", selectedCategory2Service.getSelectedCategoryName());
+        response.put("categoryImage", selectedCategory2Service.getSelectedCategoryImage());
+        response.put("subcategories", subcategoryService.getSubcategoriesByCategoryId(categoryId));
         return ResponseEntity.ok(response);
     }
 
     // Endpoint to update the selected category
     @PostMapping("/update")
-    public String updateSelectedCategory(@RequestParam Long subcategoryId) {
-        selectedCategory2Service.updateSelectedCategory(subcategoryId);  // Update the selected category
+    public String updateSelectedCategory(@RequestParam(required = false) Long categoryId) {
+        selectedCategory2Service.updateSelectedCategory(categoryId);  // Update the selected category
         return "Selected category updated successfully!";
     }
 }

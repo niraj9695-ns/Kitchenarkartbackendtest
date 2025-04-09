@@ -43,22 +43,23 @@ public class ProductController {
     @PostMapping
     public ResponseEntity<Product> addProduct(
             @RequestParam("name") String name,
-//            @RequestParam("productCode") String productCode,
-            @RequestParam("taxAmount") BigDecimal taxAmount,
+
             @RequestParam("hsnCode") String hsnCode,
             @RequestParam(value = "categoryId", required = false) Long categoryId, // Allow null
             @RequestParam(value = "subcategoryId", required = false) Long subcategoryId, // Allow null
             @RequestParam(value = "subsubcategoryId", required = false) Long subsubcategoryId, // Allow null
             @RequestParam(value = "images", required = false) List<MultipartFile> images,
-            @RequestParam(value = "isNewArrival", required = false) boolean isNewArrival) {
+            @RequestParam(value = "isNewArrival", required = false) boolean isNewArrival,
+    @RequestParam(value = "isMostSelling", required = false) boolean isMostSelling,
+    @RequestParam(value = "taxPercentage", required = false) BigDecimal taxPercentage){
         try {
             Product product = new Product();
             product.setName(name);
-//            product.setProductCode(productCode);
-            product.setTaxAmount(taxAmount);
+//       
             product.setHsnCode(hsnCode);
             product.setNewArrival(isNewArrival); // Set whether it's a new arrival
-
+            product.setMostSelling(isMostSelling);
+            product.setTaxPercentage(taxPercentage);
             // Set category if present
             if (categoryId != null) {
                 productService.getCategoryById(categoryId)
@@ -101,13 +102,14 @@ public class ProductController {
     public ResponseEntity<Product> updateProduct(
             @PathVariable Long id,
             @RequestParam(value = "name", required = false) String name,
-//            @RequestParam(value = "productCode", required = false) String productCode,
-            @RequestParam(value = "taxAmount", required = false) BigDecimal taxAmount,
+
             @RequestParam(value = "hsnCode", required = false) String hsnCode,
             @RequestParam(value = "categoryId", required = false) Long categoryId, // New parameter for category
             @RequestParam(value = "subcategoryId", required = false) Long subcategoryId,
             @RequestParam(value = "subsubcategoryId", required = false) Long subsubcategoryId,
             @RequestParam(value = "isNewArrival", required = false) Boolean isNewArrival, // New parameter
+            @RequestParam(value = "isMostSelling", required = false) Boolean isMostSelling, // Updated to nullable
+            @RequestParam(value = "taxPercentage", required = false) BigDecimal taxPercentage,
             @RequestParam(value = "imagesToDelete", required = false) List<Integer> imagesToDelete,
             @RequestParam(value = "images", required = false) List<MultipartFile> images) {
         try {
@@ -119,9 +121,9 @@ public class ProductController {
 
             // Update existing product fields only if the new value is provided
             if (name != null) existingProduct.setName(name);
-//            if (productCode != null) existingProduct.setProductCode(productCode);
-            if (taxAmount != null) existingProduct.setTaxAmount(taxAmount);
+            if (taxPercentage != null) existingProduct.setTaxPercentage(taxPercentage);
             if (hsnCode != null) existingProduct.setHsnCode(hsnCode);
+            
 
             // Handle Category
             if (categoryId != null) {
@@ -149,8 +151,12 @@ public class ProductController {
                 existingProduct.setNewArrival(isNewArrival);
             }
 
-//           
-//            // Update the product in the database
+            // Handle isMostSelling field
+            if (isMostSelling != null) {
+                existingProduct.setMostSelling(isMostSelling);
+            }
+
+            // Update the product in the database
             Product updatedProduct = productService.updateProduct(id, existingProduct);
 
             return ResponseEntity.ok(updatedProduct);
@@ -159,6 +165,7 @@ public class ProductController {
             return ResponseEntity.badRequest().build();
         }
     }
+
 
     // Endpoint to delete a product by its ID
     @DeleteMapping("/{id}")
@@ -221,6 +228,11 @@ public class ProductController {
             return Collections.emptyList();  // Return an empty list if no category is selected
         }
         return productService.getProductsByCategoryId(selectedCategoryId);  // Fetch and return products for the selected category
+    }
+    @GetMapping("/most-selling")
+    public ResponseEntity<List<Product>> getMostSelling() {
+        List<Product> mostSelling = productService.getMostSelling();
+        return ResponseEntity.ok(mostSelling);
     }
     
     

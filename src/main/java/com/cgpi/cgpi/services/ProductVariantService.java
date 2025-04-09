@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -22,6 +23,11 @@ public class ProductVariantService {
 
     @Autowired
     private ProductRepository productRepository;
+    
+    
+    
+    
+    
 
     // Add a new variant to a product
     public ProductVariant addVariant(Long productId, ProductVariant variant) {
@@ -53,8 +59,8 @@ existingVariant.setColor(variant.getColor());
 existingVariant.setDimensions(variant.getDimensions());
 existingVariant.setPrice(variant.getPrice());
 existingVariant.setStock(variant.getStock());
-existingVariant.setInStock(variant.getInStock());
-existingVariant.setQuantity(variant.getQuantity());
+existingVariant.setIncludedComponents(variant.getIncludedComponents());
+existingVariant.setProductGrossWeight(variant.getProductGrossWeight());
 existingVariant.setDescription(variant.getDescription());
 existingVariant.setKeyFeatures(variant.getKeyFeatures());
 existingVariant.setOtherDimensions(variant.getOtherDimensions());
@@ -124,6 +130,15 @@ return productVariantRepository.save(existingVariant);
         return Optional.of(variant);
     }
 
-    
+    public ProductVariant updateStock(Long variantId, Integer newStock) {
+        ProductVariant variant = productVariantRepository.findById(variantId)
+                .orElseThrow(() -> new RuntimeException("Variant not found"));
+
+        // Set the new stock value
+        variant.setStock(newStock);
+
+        return productVariantRepository.save(variant);
+    }
+
     
 }

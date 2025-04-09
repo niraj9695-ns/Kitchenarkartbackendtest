@@ -42,8 +42,14 @@ public class SelectedCategoryController {
     }
 
     // Endpoint to update the selected category
+//    @PostMapping("/update")
+//    public String updateSelectedCategory(@RequestParam Long categoryId) {
+//        selectedCategoryService.updateSelectedCategory(categoryId);  // Update the selected category
+//        return "Selected category updated successfully!";
+//    }
+    // Endpoint to update the selected category
     @PostMapping("/update")
-    public String updateSelectedCategory(@RequestParam Long categoryId) {
+    public String updateSelectedCategory(@RequestParam(required = false) Long categoryId) {
         selectedCategoryService.updateSelectedCategory(categoryId);  // Update the selected category
         return "Selected category updated successfully!";
     }

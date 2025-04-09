@@ -46,16 +46,16 @@ public class SelectedCategoryService {
                 .orElse(null); // Return null if the category is not found
     }
 
-    // Update the selected category ID (Only updates the existing one)
     public void updateSelectedCategory(Long categoryId) {
         SelectedCategory existingSelectedCategory = selectedCategoryRepository.findById(1L).orElse(null);
 
         if (existingSelectedCategory != null) {
+            // Update to null if categoryId is null
             existingSelectedCategory.setCategoryId(categoryId);
             selectedCategoryRepository.save(existingSelectedCategory);
         } else {
             SelectedCategory selectedCategory = new SelectedCategory();
-            selectedCategory.setCategoryId(categoryId);
+            selectedCategory.setCategoryId(categoryId); // Can set to null
             selectedCategoryRepository.save(selectedCategory);
         }
     }

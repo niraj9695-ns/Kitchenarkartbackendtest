@@ -2,8 +2,7 @@ package com.cgpi.cgpi.services;
 
 import com.cgpi.cgpi.entity.Category;
 import com.cgpi.cgpi.entity.SelectedCategory2;
-import com.cgpi.cgpi.entity.Subcategory;
-import com.cgpi.cgpi.repository.SubcategoryRepository;
+import com.cgpi.cgpi.repository.CategoryRepository;
 import com.cgpi.cgpi.repository.SelectedCategory2Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,60 +14,61 @@ public class SelectedCategory2Service {
     private SelectedCategory2Repository selectedCategory2Repository;
 
     @Autowired
-    private SubcategoryRepository subcategoryRepository;
+    private CategoryRepository categoryRepository;
 
     // Fetch the name of the selected category
     public String getSelectedCategoryName() {
-        SelectedCategory2 selectedCategory = selectedCategory2Repository.findById(1L).orElse(null);
+        SelectedCategory2 selectedCategory2 = selectedCategory2Repository.findById(1L).orElse(null);
 
-        if (selectedCategory == null) {
+        if (selectedCategory2 == null) {
             return "No category selected";
         }
 
-        Long selectedSubcategoryId = selectedCategory.getSubcategoryId();
+        Long selectedCategoryId = selectedCategory2.getCategoryId();
 
-        return subcategoryRepository.findById(selectedSubcategoryId)
-                .map(Subcategory::getName)
+        return categoryRepository.findById(selectedCategoryId)
+                .map(Category::getName)
                 .orElse("Selected category not found");
     }
 
     // Fetch the image of the selected category
     public byte[] getSelectedCategoryImage() {
-        SelectedCategory2 selectedCategory = selectedCategory2Repository.findById(1L).orElse(null);
+        SelectedCategory2 selectedCategory2 = selectedCategory2Repository.findById(1L).orElse(null);
 
-        if (selectedCategory == null) {
+        if (selectedCategory2 == null) {
             return null; // Return null if no category is selected
         }
 
-        Long selectedCategoryId = selectedCategory.getSubcategoryId();
+        Long selectedCategoryId = selectedCategory2.getCategoryId();
 
-        return subcategoryRepository.findById(selectedCategoryId)
-                .map(Subcategory::getImage) // Retrieve the image field
+        return categoryRepository.findById(selectedCategoryId)
+                .map(Category::getImage) // Retrieve the image field
                 .orElse(null); // Return null if the category is not found
     }
 
     // Update the selected category ID (Only updates the existing one)
-    public void updateSelectedCategory(Long subcategoryId) {
-        SelectedCategory2 existingSelectedCategory = selectedCategory2Repository.findById(1L).orElse(null);
+    public void updateSelectedCategory(Long categoryId) {
+        SelectedCategory2 existingSelectedCategory2 = selectedCategory2Repository.findById(1L).orElse(null);
 
-        if (existingSelectedCategory != null) {
-            existingSelectedCategory.setSubcategoryId(subcategoryId);
-            selectedCategory2Repository.save(existingSelectedCategory);
+        if (existingSelectedCategory2 != null) {
+            existingSelectedCategory2.setCategoryId(categoryId);
+            selectedCategory2Repository.save(existingSelectedCategory2);
         } else {
-            SelectedCategory2 selectedCategory = new SelectedCategory2();
-            selectedCategory.setSubcategoryId(subcategoryId);
-            selectedCategory2Repository.save(selectedCategory);
+            SelectedCategory2 selectedCategory2 = new SelectedCategory2();
+            selectedCategory2.setCategoryId(categoryId);
+            selectedCategory2Repository.save(selectedCategory2);
         }
     }
+    
 
     // Fetch the ID of the selected category
     public Long getSelectedCategoryId() {
-        SelectedCategory2 selectedCategory = selectedCategory2Repository.findById(1L).orElse(null);
+        SelectedCategory2 selectedCategory2 = selectedCategory2Repository.findById(1L).orElse(null);
 
-        if (selectedCategory == null) {
+        if (selectedCategory2 == null) {
             return null;
         }
 
-        return selectedCategory.getSubcategoryId();
+        return selectedCategory2.getCategoryId();
     }
 }

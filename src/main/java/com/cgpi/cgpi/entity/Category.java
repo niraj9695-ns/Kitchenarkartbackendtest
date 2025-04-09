@@ -7,6 +7,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.util.ArrayList;
@@ -21,6 +23,7 @@ public class Category {
     private String name;
 
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
     
     private boolean topCategory;

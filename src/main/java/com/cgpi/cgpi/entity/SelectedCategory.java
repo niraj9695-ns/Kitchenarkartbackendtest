@@ -12,7 +12,7 @@ public class SelectedCategory {
     @GeneratedValue(strategy = GenerationType.IDENTITY)  // Auto-incrementing primary key
     private Long id;
 
-    @Column(name = "category_id", nullable = false)  // Stores the selected category ID
+    @Column(name = "category_id", nullable = true)  // Stores the selected category ID
     private Long categoryId;
 
     // Getter for 'id'

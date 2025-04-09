@@ -26,6 +26,7 @@ public class Subcategory {
     private String name;
 
     @Lob
+    @Column(columnDefinition = "LONGBLOB")
     private byte[] image;
 
     @Column(name = "category_id", nullable = false)
